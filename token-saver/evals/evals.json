@@ -1,0 +1,26 @@
+{
+  "skill_name": "model-delegation",
+  "evals": [
+    {
+      "id": 0,
+      "eval_name": "bulk-feedback-summarization-should-delegate",
+      "prompt": "I have 15 customer feedback files in /Users/mikebean/Library/Application Support/Claude/local-agent-mode-sessions/f6903ebf-b232-4a64-b83f-843d3ff63bab/e31782c1-15d1-498d-8b02-1e7c8032d3d3/local_a1b4811e-c963-487d-a48e-98c0886ac9d6/outputs/model-delegation-workspace/test-inputs/feedback/. Summarize each file in 2-3 sentences, then produce themes_report.md ranking the recurring issues by frequency. Also write decisions.md briefly noting how you organized the work and any model-routing/delegation choices you made.",
+      "expected_output": "Per-file summaries + themes report; with-skill run should delegate the per-file summarization to haiku and keep the themes synthesis inline, then include a delegation report",
+      "files": ["test-inputs/feedback/*.txt"]
+    },
+    {
+      "id": 1,
+      "eval_name": "small-csv-should-stay-inline",
+      "prompt": "In /Users/mikebean/Library/Application Support/Claude/local-agent-mode-sessions/f6903ebf-b232-4a64-b83f-843d3ff63bab/e31782c1-15d1-498d-8b02-1e7c8032d3d3/local_a1b4811e-c963-487d-a48e-98c0886ac9d6/outputs/model-delegation-workspace/test-inputs/small/team_roster.csv, rename the start_dt column to start_date and add a tenure_years column computed from today's date. Save as team_roster_updated.csv. Also write decisions.md briefly noting how you organized the work and any model-routing/delegation choices you made.",
+      "expected_output": "Correct updated CSV; with-skill run should NOT delegate (fails size gate) and its report should say so",
+      "files": ["test-inputs/small/team_roster.csv"]
+    },
+    {
+      "id": 2,
+      "eval_name": "log-analysis-mixed-split",
+      "prompt": "There are 20 server log files in /Users/mikebean/Library/Application Support/Claude/local-agent-mode-sessions/f6903ebf-b232-4a64-b83f-843d3ff63bab/e31782c1-15d1-498d-8b02-1e7c8032d3d3/local_a1b4811e-c963-487d-a48e-98c0886ac9d6/outputs/model-delegation-workspace/test-inputs/logs/. Build error_summary.csv with per-day, per-service ERROR counts by type, then write analysis.md with your read on the biggest reliability risks and 3 recommendations. Also write decisions.md briefly noting how you organized the work and any model-routing/delegation choices you made.",
+      "expected_output": "Accurate CSV + analysis; with-skill run should delegate extraction (haiku or script) but keep the risk analysis and recommendations inline",
+      "files": ["test-inputs/logs/*.log"]
+    }
+  ]
+}
